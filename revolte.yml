@@ -1,14 +1,14 @@
 revolte:
   version: '1.0'
-  project: Untitled Project
-  appName: newapp
+  project: Qa Project
+  appName: qatest
   config:
     codeReview:
       summarize: true
       suggestFixes: true
       commentStyle: Balanced
       excludes:
-        - '*/.json'
+        - '["*/.json"]'
   env:
     staging:
       branch: qatest
@@ -16,18 +16,18 @@ revolte:
       services:
         rid_1:
           type: WEB_SERVICE
-          name: web_service
+          name: web_service test
           entryPoint: index.js
           properties:
-            health: /health
+            health: /up
             port: 8080
             variables:
-              BASE_URL: /api/v1
               DATABASE_URL: '#{db.dbUrl}'
               DATABASE_PORT: '#{db.dbPort}'
               DATABASE_USERNAME: '#{db.dbUsername}'
               DATABASE_PASSWORD: '#{db.dbPassword}'
               DATABASE_NAME: '#{db.dbName}'
+              BASE_URL: /api/v1
           specifications:
             cpu: 2
             memory: 1
@@ -51,25 +51,18 @@ revolte:
           properties:
             health: /health
             port: 8080
-            variables:
-              BASE_URL: /api/v1
-              DATABASE_URL: '#{db.dbUrl}'
-              DATABASE_PORT: '#{db.dbPort}'
-              DATABASE_USERNAME: '#{db.dbUsername}'
-              DATABASE_PASSWORD: '#{db.dbPassword}'
-              DATABASE_NAME: '#{db.dbName}'
           specifications:
             cpu: 2
             memory: 2
-            storage: 30
+            storage: 20
         rid_2:
           type: DATABASE
-          name: db
+          name: dbase
           specifications:
-            cpu: 2
-            memory: 1
-            storage: 30
-            engine: postgres
+            cpu: 96
+            memory: 384
+            storage: 65536
+            engine: mysql
     production:
       branch: main
       codeReview: true
