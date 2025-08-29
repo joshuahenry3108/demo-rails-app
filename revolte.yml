@@ -19,7 +19,7 @@ revolte:
           name: web_service
           entryPoint: index.js
           properties:
-            health: /up
+            health: /health
             port: 8080
             variables:
               BASE_URL: /api/v1
@@ -49,7 +49,7 @@ revolte:
           name: web_service
           entryPoint: index.js
           properties:
-            health: /health
+            health: /up
             port: 8080
             variables:
               BASE_URL: /api/v1
