@@ -1,18 +1,10 @@
 revolte:
   version: '1.0'
-  project: Rails
-  appName: railsapp
-  config:
-    codeReview:
-      summarize: true
-      suggestFixes: true
-      commentStyle: Balanced
-      excludes:
-        - '["[\"*/.json\"]"]'
+  project: Sample Rails Project
+  appName: rails-application
   env:
     staging:
       branch: qatest
-      codeReview: true
       services:
         rid_1:
           type: WEB_SERVICE
@@ -21,6 +13,7 @@ revolte:
           properties:
             health: /up
             port: 8080
+            loadBalancerMode: dedicated
             variables:
               BASE_URL: /api/v1
               DATABASE_URL: '#{db.dbUrl}'
@@ -28,7 +21,7 @@ revolte:
               DATABASE_USERNAME: '#{db.dbUsername}'
               DATABASE_PASSWORD: '#{db.dbPassword}'
               DATABASE_NAME: '#{db.dbName}'
-              SECRET_KEY_BASE: testapp
+              SECRET_KEY_BASE: '#{testapp}'
           specifications:
             cpu: 2
             memory: 1
@@ -43,7 +36,6 @@ revolte:
             engine: postgres
     qa:
       branch: qatest
-      codeReview: true
       services:
         rid_1:
           type: WEB_SERVICE
@@ -52,6 +44,7 @@ revolte:
           properties:
             health: /up
             port: 8080
+            loadBalancerMode: dedicated
             variables:
               BASE_URL: /api/v1
               DATABASE_URL: '#{db.dbUrl}'
@@ -59,7 +52,6 @@ revolte:
               DATABASE_USERNAME: '#{db.dbUsername}'
               DATABASE_PASSWORD: '#{db.dbPassword}'
               DATABASE_NAME: '#{db.dbName}'
-              secret_key_base: test
           specifications:
             cpu: 2
             memory: 1
@@ -73,16 +65,16 @@ revolte:
             storage: 30
             engine: postgres
     production:
-      branch: main
-      codeReview: true
+      branch: qatest
       services:
         rid_1:
           type: WEB_SERVICE
           name: web_service
           entryPoint: index.js
           properties:
-            health: /health
+            health: /up
             port: 8080
+            loadBalancerMode: dedicated
             variables:
               BASE_URL: /api/v1
               DATABASE_URL: '#{db.dbUrl}'
@@ -97,7 +89,7 @@ revolte:
             autoScaling:
               replica:
                 min: 1
-                max: 2
+                max: 1
         rid_2:
           type: DATABASE
           name: db
@@ -107,15 +99,15 @@ revolte:
             storage: 30
             engine: postgres
     preview:
-      codeReview: true
       services:
         rid_1:
           type: WEB_SERVICE
           name: web_service
           entryPoint: index.js
           properties:
-            health: /health
+            health: /up
             port: 8080
+            loadBalancerMode: dedicated
             variables:
               BASE_URL: /api/v1
               DATABASE_URL: '#{db.dbUrl}'
