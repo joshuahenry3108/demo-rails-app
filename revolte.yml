@@ -11,7 +11,7 @@ revolte:
           name: web_service
           entryPoint: config.ru
           properties:
-            health: /up
+            health: /health
             port: 3000
             loadBalancerMode: dedicated
             variables:
