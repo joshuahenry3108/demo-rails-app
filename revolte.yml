@@ -1,7 +1,7 @@
 revolte:
   version: '1.0'
-  project: Sample Rails Project
-  appName: rails-application
+  project: Untitled Project
+  appName: test
   env:
     staging:
       branch: rails-qa
